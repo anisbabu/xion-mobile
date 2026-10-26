@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="xion_status_ready" translatable="false">Ready · Java Edition</string>
+    <string name="xion_title" translatable="false">Xion</string>
+    <string name="xion_subtitle">Minecraft Java Edition, tuned for your phone.</string>
+    <string name="xion_edit_profile">Edit profile</string>
+    <string name="xion_tile_lite">Lite mode</string>
+    <string name="xion_tile_website">Xion website</string>
+    <string name="xion_url_home" translatable="false">https://anisbabu.github.io/xion-launcher/</string>
+
+    <string name="xion_lite_title">Lite mode</string>
+    <string name="xion_lite_on">Lite mode is on. New and existing game folders get low-end video settings the next time you press Play: short render distance, fast graphics, no clouds, fewer particles and a 60 FPS cap.</string>
+    <string name="xion_lite_off">Lite mode is off. Your own video settings are left alone.</string>
+    <string name="xion_lite_enable">Turn on</string>
+    <string name="xion_lite_disable">Turn off</string>
+    <string name="xion_lite_apply_now">Apply to this profile now</string>
+    <string name="xion_lite_applied">Low-end settings applied to this profile.</string>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="control_button_color">#4CC4C4C4</color>
+    <color name="control_button_pressed_color">#4D000000</color>
+
+    <!-- Xion "Nightfall" palette: moonlight on charcoal -->
+    <color name="xion_bg">#07090D</color>
+    <color name="xion_moon">#E9EEF7</color>
+    <color name="xion_ice">#C9D6FF</color>
+    <color name="xion_ember">#FFB86B</color>
+    <color name="xion_on_moon">#0B0D12</color>
+    <color name="xion_glass">#A60D1016</color>
+    <color name="xion_glass_pressed">#D91C2230</color>
+    <color name="xion_line">#1FFFFFFF</color>
+    <color name="xion_ok">#6EE7A8</color>
+
+    <color name="minebutton_color">@color/xion_moon</color>
+    <!-- Slightly translucent so secondary screens sit over the mountain scene like glass -->
+    <color name="background_app">#EB07090D</color>
+    <color name="divider">@color/background_overlay</color>
+    <color name="background_overlay">#262C38</color>
+    <color name="background_status_bar">#07090D</color>
+    <color name="background_bottom_bar">#B30C0F15</color>
+
+    <color name="primary_text">#E8ECF2</color>
+    <color name="secondary_text">#8B94A5</color>
+</resources>

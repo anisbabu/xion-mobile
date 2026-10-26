@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dark glass card used for tiles and the profile bar -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="#26FFFFFF">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="18dp" />
+            <solid android:color="@color/xion_glass" />
+            <stroke android:width="1dp" android:color="@color/xion_line" />
+        </shape>
+    </item>
+</ripple>
