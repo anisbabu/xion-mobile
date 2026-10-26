@@ -16,3 +16,6 @@ app_pojavlauncher/.cxx/
 /app_pojavlauncher/curseforge_key.txt
 build-*.log
 release/
+keystore.properties
+shots/
+build-*.log

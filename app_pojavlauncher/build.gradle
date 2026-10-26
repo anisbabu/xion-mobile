@@ -86,10 +86,14 @@ android {
             keyPassword "android"
         }
         customRelease {
-            storeFile file("aamc_upload.jks")
-            storePassword System.getenv("GPLAY_KEYSTORE_PASSWORD")
-            keyAlias "android_github_release"
-            keyPassword System.getenv("GPLAY_KEYSTORE_PASSWORD")
+            // Xion's own release key; path and password come from keystore.properties (not in git)
+            def ksProps = new Properties()
+            def ksFile = rootProject.file("keystore.properties")
+            if (ksFile.exists()) ksFile.withInputStream { ksProps.load(it) }
+            storeFile ksProps.getProperty("storeFile") ? file(ksProps.getProperty("storeFile")) : file("aamc_upload.jks")
+            storePassword ksProps.getProperty("password", System.getenv("GPLAY_KEYSTORE_PASSWORD"))
+            keyAlias ksProps.getProperty("keyAlias", "android_github_release")
+            keyPassword ksProps.getProperty("password", System.getenv("GPLAY_KEYSTORE_PASSWORD"))
         }
         googlePlayBuild {
             storeFile file("upload.jks")
@@ -103,8 +107,8 @@ android {
         applicationId "net.xion.mobile"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 10000000
-        versionName getVersionName()
+        versionCode 10000100
+        versionName "1.0.0"
         multiDexEnabled true //important
         resValue 'string', 'curseforge_api_key', getCFApiKey()
         externalNativeBuild {
@@ -122,11 +126,11 @@ android {
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.customDebug
-            resValue "string", "app_name", "Amethyst (Debug)"
-            resValue "string", "app_short_name", "Amethyst (Debug)"
-            resValue 'string', 'application_package', 'org.angelauramc.amethyst.debug'
-            resValue 'string', 'storageProviderAuthorities', 'org.angelauramc.amethyst.scoped.gamefolder.debug'
-            resValue 'string', 'shareProviderAuthority', 'org.angelauramc.amethyst.scoped.controlfolder.debug'
+            resValue "string", "app_name", "Xion (Debug)"
+            resValue "string", "app_short_name", "Xion (Debug)"
+            resValue 'string', 'application_package', 'net.xion.mobile.debug'
+            resValue 'string', 'storageProviderAuthorities', 'net.xion.mobile.scoped.gamefolder.debug'
+            resValue 'string', 'shareProviderAuthority', 'net.xion.mobile.scoped.controlfolder.debug'
         }
         proguard {
             initWith debug
@@ -146,10 +150,10 @@ android {
             // defaultConfig already set
             // multiDexEnabled = true
             // debuggable = true
-            resValue "string", "app_name", "Amethyst"
-            resValue "string", "app_short_name", "Amethyst"
-            resValue 'string', 'storageProviderAuthorities', 'org.angelauramc.amethyst.scoped.gamefolder'
-            resValue 'string', 'application_package', 'org.angelauramc.amethyst'
+            resValue "string", "app_name", "Xion"
+            resValue "string", "app_short_name", "Xion"
+            resValue 'string', 'storageProviderAuthorities', 'net.xion.mobile.scoped.gamefolder'
+            resValue 'string', 'application_package', 'net.xion.mobile'
         }
         gplay {
             initWith release

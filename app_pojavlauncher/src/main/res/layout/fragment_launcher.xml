@@ -1,141 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Xion Mobile home: greeting, profile and Play on the left; quick tiles on the right. -->
-<androidx.constraintlayout.widget.ConstraintLayout
+<!-- Xion Mobile home (portrait): greeting, profile and Play, then quick tiles. Landscape lives in layout-land. -->
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:id="@+id/fragment_menu_main"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@android:color/transparent"
-	android:paddingHorizontal="@dimen/_14sdp"
-	android:paddingBottom="@dimen/_10sdp">
+	android:clipToPadding="false"
+	android:fillViewport="true"
+	android:overScrollMode="never"
+	android:scrollbars="none">
 
-	<androidx.constraintlayout.widget.Guideline
-		android:id="@+id/split_guideline"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		android:orientation="vertical"
-		app:layout_constraintGuide_percent="0.54" />
-
-	<!-- ===== left: hero ===== -->
-	<TextView
-		android:id="@+id/xion_status"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:background="@drawable/xion_chip"
-		android:drawableStart="@drawable/xion_dot"
-		android:drawablePadding="@dimen/_6sdp"
-		android:fontFamily="@font/inter_medium"
-		android:paddingHorizontal="@dimen/_10sdp"
-		android:paddingVertical="@dimen/_4sdp"
-		android:text="@string/xion_status_ready"
-		android:textColor="@color/primary_text"
-		android:textSize="@dimen/_9ssp"
-		app:layout_constraintBottom_toTopOf="@id/xion_title"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintVertical_chainStyle="packed"
-		app:layout_constraintVertical_bias="0.55" />
-
-	<TextView
-		android:id="@+id/xion_title"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="@dimen/_8sdp"
-		android:fontFamily="@font/outfit_light"
-		android:includeFontPadding="false"
-		android:letterSpacing="-0.02"
-		android:text="@string/xion_title"
-		android:textColor="#FFFFFF"
-		android:textSize="@dimen/_34ssp"
-		app:layout_constraintBottom_toTopOf="@id/xion_subtitle"
-		app:layout_constraintEnd_toStartOf="@id/split_guideline"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/xion_status" />
-
-	<TextView
-		android:id="@+id/xion_subtitle"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="@dimen/_4sdp"
-		android:fontFamily="@font/inter_regular"
-		android:text="@string/xion_subtitle"
-		android:textColor="@color/secondary_text"
-		android:textSize="@dimen/_10ssp"
-		app:layout_constraintBottom_toTopOf="@id/profile_bar"
-		app:layout_constraintEnd_toStartOf="@id/split_guideline"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/xion_title" />
-
-	<!-- profile picker in a glass bar -->
 	<LinearLayout
-		android:id="@+id/profile_bar"
-		android:layout_width="0dp"
-		android:layout_height="@dimen/_44sdp"
-		android:layout_marginTop="@dimen/_12sdp"
-		android:layout_marginEnd="@dimen/_14sdp"
-		android:background="@drawable/xion_glass"
-		android:gravity="center_vertical"
-		android:orientation="horizontal"
-		android:paddingStart="@dimen/_4sdp"
-		app:layout_constraintBottom_toTopOf="@id/play_button"
-		app:layout_constraintEnd_toStartOf="@id/split_guideline"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/xion_subtitle">
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="bottom"
+		android:orientation="vertical"
+		android:paddingHorizontal="@dimen/_14sdp"
+		android:paddingTop="@dimen/_24sdp"
+		android:paddingBottom="@dimen/_14sdp">
 
-		<com.kdt.mcgui.mcVersionSpinner
-			android:id="@+id/mc_version_spinner"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
+		<!-- pushes the content toward the bottom so the mountains stay visible on tall screens -->
+		<Space
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
 			android:layout_weight="1"
-			android:background="@android:color/transparent"
-			android:drawableEnd="@drawable/spinner_arrow"
-			app:drawableEndPadding="@dimen/_1sdp"
-			app:drawableEndSize="@dimen/_10sdp"
-			app:drawableStartIntegerScaling="true"
-			app:drawableStartSize="@dimen/_28sdp" />
+			android:minHeight="@dimen/_40sdp" />
 
-		<ImageButton
-			android:id="@+id/edit_profile_button"
-			android:layout_width="@dimen/_44sdp"
-			android:layout_height="match_parent"
-			android:background="?android:attr/selectableItemBackgroundBorderless"
-			android:contentDescription="@string/xion_edit_profile"
-			android:padding="@dimen/_12sdp"
-			android:scaleType="fitCenter"
-			android:src="@drawable/ic_edit_profile" />
-	</LinearLayout>
+		<TextView
+			android:id="@+id/xion_status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="@drawable/xion_chip"
+			android:drawableStart="@drawable/xion_dot"
+			android:drawablePadding="@dimen/_6sdp"
+			android:fontFamily="@font/inter_medium"
+			android:paddingHorizontal="@dimen/_10sdp"
+			android:paddingVertical="@dimen/_4sdp"
+			android:text="@string/xion_status_ready"
+			android:textColor="@color/primary_text"
+			android:textSize="@dimen/_10ssp" />
 
-	<com.kdt.mcgui.MineButton
-		android:id="@+id/play_button"
-		android:layout_width="0dp"
-		android:layout_height="@dimen/_48sdp"
-		android:layout_marginTop="@dimen/_10sdp"
-		android:layout_marginEnd="@dimen/_14sdp"
-		android:text="@string/main_play"
-		android:textAllCaps="false"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toStartOf="@id/split_guideline"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/profile_bar" />
+		<TextView
+			android:id="@+id/xion_title"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/_10sdp"
+			android:fontFamily="@font/outfit_light"
+			android:includeFontPadding="false"
+			android:letterSpacing="-0.02"
+			android:text="@string/xion_title"
+			android:textColor="#FFFFFF"
+			android:textSize="@dimen/_44ssp" />
 
-	<!-- ===== right: quick tiles ===== -->
-	<ScrollView
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		android:clipToPadding="false"
-		android:fadeScrollbars="true"
-		android:paddingVertical="@dimen/_6sdp"
-		android:scrollbars="none"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toEndOf="@id/split_guideline"
-		app:layout_constraintTop_toTopOf="parent">
+		<TextView
+			android:id="@+id/xion_subtitle"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/_4sdp"
+			android:fontFamily="@font/inter_regular"
+			android:text="@string/xion_subtitle"
+			android:textColor="@color/secondary_text"
+			android:textSize="@dimen/_11ssp" />
+
+		<LinearLayout
+			android:id="@+id/profile_bar"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/_50sdp"
+			android:layout_marginTop="@dimen/_16sdp"
+			android:background="@drawable/xion_glass"
+			android:gravity="center_vertical"
+			android:orientation="horizontal"
+			android:paddingStart="@dimen/_4sdp">
+
+			<com.kdt.mcgui.mcVersionSpinner
+				android:id="@+id/mc_version_spinner"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:background="@android:color/transparent"
+				android:drawableEnd="@drawable/spinner_arrow"
+				app:drawableEndPadding="@dimen/_1sdp"
+				app:drawableEndSize="@dimen/_10sdp"
+				app:drawableStartIntegerScaling="true"
+				app:drawableStartSize="@dimen/_30sdp"
+				android:textColor="@color/primary_text"
+				android:ellipsize="end"
+				android:maxLines="1" />
+
+			<ImageButton
+				android:id="@+id/edit_profile_button"
+				android:layout_width="@dimen/_50sdp"
+				android:layout_height="match_parent"
+				android:background="?android:attr/selectableItemBackgroundBorderless"
+				android:contentDescription="@string/xion_edit_profile"
+				android:padding="@dimen/_14sdp"
+				android:scaleType="fitCenter"
+				android:src="@drawable/ic_edit_profile" />
+		</LinearLayout>
+
+		<com.kdt.mcgui.MineButton
+			android:id="@+id/play_button"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/_54sdp"
+			android:layout_marginTop="@dimen/_10sdp"
+			android:text="@string/main_play"
+			android:textAllCaps="false" />
 
 		<GridLayout
 			android:id="@+id/xion_tiles"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginHorizontal="-4dp"
+			android:layout_marginTop="@dimen/_12sdp"
 			android:columnCount="2"
 			android:useDefaultMargins="false">
 
@@ -149,25 +126,25 @@
 				android:id="@+id/custom_control_button"
 				style="@style/XionTile"
 				android:drawableStart="@drawable/ic_menu_custom_controls"
-				android:text="@string/mcl_option_customcontrol" />
+				android:text="@string/xion_tile_controls" />
 
 			<com.kdt.mcgui.LauncherMenuButton
 				android:id="@+id/open_files_button"
 				style="@style/XionTile"
 				android:drawableStart="@drawable/ic_folder"
-				android:text="@string/mcl_button_open_directory" />
+				android:text="@string/xion_tile_files" />
 
 			<com.kdt.mcgui.LauncherMenuButton
 				android:id="@+id/install_jar_button"
 				style="@style/XionTile"
 				android:drawableStart="@drawable/ic_menu_install_jar"
-				android:text="@string/main_install_jar_file" />
+				android:text="@string/xion_tile_install" />
 
 			<com.kdt.mcgui.LauncherMenuButton
 				android:id="@+id/share_logs_button"
 				style="@style/XionTile"
 				android:drawableStart="@android:drawable/ic_menu_share"
-				android:text="@string/main_share_logs" />
+				android:text="@string/xion_tile_logs" />
 
 			<com.kdt.mcgui.LauncherMenuButton
 				android:id="@+id/news_button"
@@ -175,6 +152,5 @@
 				android:drawableStart="@drawable/ic_menu_news"
 				android:text="@string/xion_tile_website" />
 		</GridLayout>
-	</ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+	</LinearLayout>
+</ScrollView>

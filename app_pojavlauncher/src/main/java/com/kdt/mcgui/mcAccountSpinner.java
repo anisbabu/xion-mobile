@@ -151,7 +151,7 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
     @SuppressLint("ClickableViewAccessibility")
     private void init(){
         // Set visual properties
-        setBackgroundColor(getResources().getColor(R.color.background_status_bar));
+        setBackground(androidx.core.content.res.ResourcesCompat.getDrawable(getResources(), R.drawable.xion_glass_pill, null));
         mLoginBarPaint.setColor(getResources().getColor(R.color.minebutton_color));
         mLoginBarPaint.setStrokeWidth(getResources().getDimensionPixelOffset(R.dimen._2sdp));
 
@@ -185,6 +185,8 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
     @Override
     protected void onDraw(Canvas canvas) {
         if(mLoginBarWidth == -1) mLoginBarWidth = getWidth(); // Initial draw
+        // Xion: the progress line only shows while a login is running, not as a permanent underline.
+        if(mLoginBarWidth <= 0 || mLoginBarWidth >= getWidth()) return;
 
         float bottom = getHeight() - mLoginBarPaint.getStrokeWidth()/2;
         canvas.drawLine(0, bottom, mLoginBarWidth, bottom, mLoginBarPaint);

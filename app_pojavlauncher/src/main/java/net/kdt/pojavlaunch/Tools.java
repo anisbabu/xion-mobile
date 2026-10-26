@@ -1843,9 +1843,10 @@ public final class Tools {
         MinecraftAccount currentProfile = PojavProfile.getCurrentProfileContent(ctx, null);
         return currentProfile == null || currentProfile.isLocal();
     }
+    /** Xion: any non-demo account (offline included) unlocks every feature, like the PC launcher. */
     public static boolean hasOnlineProfile(){
         for (MinecraftAccount accountToCheck : getAllProfiles()) {
-            if (!accountToCheck.isLocal() && !accountToCheck.isDemo()) {
+            if (!accountToCheck.isDemo()) {
                 return true;
             }
         }

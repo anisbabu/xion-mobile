@@ -6,6 +6,19 @@
     <string name="xion_edit_profile">Edit profile</string>
     <string name="xion_tile_lite">Lite mode</string>
     <string name="xion_tile_website">Xion website</string>
+    <string name="xion_tile_controls">Controls</string>
+    <string name="xion_tile_files">Game files</string>
+    <string name="xion_tile_install">Install .jar</string>
+    <string name="xion_tile_logs">Share logs</string>
+    <string name="xion_auth_title">How do you want to play?</string>
+    <string name="xion_auth_subtitle">You can add more accounts later from the account menu.</string>
+    <string name="xion_auth_offline">Play offline</string>
+    <string name="xion_auth_offline_hint">Any username. Singleplayer, LAN and offline-mode servers.</string>
+    <string name="xion_auth_microsoft">Sign in with Microsoft</string>
+    <string name="xion_offline_title">Pick a username</string>
+    <string name="xion_offline_subtitle">3–16 letters, numbers or underscores. This is the name other players see.</string>
+    <string name="xion_offline_hint">Steve</string>
+    <string name="xion_offline_go">Start playing</string>
     <string name="xion_url_home" translatable="false">https://anisbabu.github.io/xion-launcher/</string>
 
     <string name="xion_lite_title">Lite mode</string>

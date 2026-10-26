@@ -292,6 +292,7 @@ public class LauncherActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pojav_launcher);
         mSceneDrift = net.xion.mobile.SceneDrift.attach(findViewById(R.id.xion_scene));
+        net.xion.mobile.XionStarter.runIfNeeded(this);
         FragmentManager fragmentManager = getSupportFragmentManager();
         // If we don't have a back stack root yet...
         if(fragmentManager.getBackStackEntryCount() < 1) {

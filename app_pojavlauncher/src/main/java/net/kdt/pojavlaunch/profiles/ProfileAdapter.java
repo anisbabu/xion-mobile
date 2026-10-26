@@ -105,6 +105,13 @@ public class ProfileAdapter extends BaseAdapter {
         else if (MinecraftProfile.LATEST_SNAPSHOT.equalsIgnoreCase(versionName))
             versionName = v.getContext().getString(R.string.profiles_latest_snapshot);
 
+        // Xion: show a clean version label (fabric-loader-0.20.1-1.21.1 -> Fabric 1.21.1)
+        if (versionName != null) {
+            java.util.regex.Matcher m = java.util.regex.Pattern.compile("^(fabric|quilt)-loader-[^-]+-(.+)$").matcher(versionName);
+            if (m.matches()) versionName = (m.group(1).equals("quilt") ? "Quilt " : "Fabric ") + m.group(2);
+        }
+        // Xion: the name alone is enough when it already contains the game version
+        if (profileName != null && versionName != null && profileName.contains(versionName.replaceAll("^(Fabric|Quilt) ", ""))) versionName = null;
         if (versionName == null && profileName != null)
             extendedTextView.setText(profileName);
         else if (versionName != null && profileName == null)
