@@ -86,7 +86,8 @@ public class MinecraftDownloader {
 
         sExecutorService.execute(() -> {
             try {
-                if(isLocalProfile || !isOnline) {
+                // Xion: offline accounts download the game like the PC launcher; only skip when there is no internet.
+                if(!isOnline) {
                     String versionMessage = realVersion; // Use provided version unless we find its a modded instance
 
                     // See if provided version is a modded version and if that version depends on another jar, check for presence of both jar's .json.
@@ -105,7 +106,7 @@ public class MinecraftDownloader {
 
                         listener.onDownloadDone();
                     } catch (Exception e) {
-                        String tryagain = !isOnline ? "Please ensure you have an internet connection" : "Please try again on your Microsoft Account";
+                        String tryagain = !isOnline ? "Connect to the internet once so Xion can download it" : "Please try again";
                         Tools.showErrorRemote(versionMessage + " is not currently installed. "+ tryagain, e);
                     }
                 }else {

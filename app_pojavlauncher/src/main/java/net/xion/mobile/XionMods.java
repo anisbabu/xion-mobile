@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 public final class XionMods {
     /** Modrinth slugs: memory, CPU, culling and networking optimisations. */
     private static final String[] PACK = {
+            "fabric-api",       // library most Fabric mods need
             "ferrite-core",     // much lower RAM use
             "modernfix",        // faster start, less memory
             "lithium",          // game logic / physics
@@ -39,16 +40,17 @@ public final class XionMods {
         Matcher m = MODDED.matcher(versionId);
         if (!m.matches()) return;
         String loader = m.group(1), game = m.group(2);
-        File marker = new File(gameDir, ".xion-mods-" + game);
+        File marker = new File(gameDir, ".xion-mods-v2-" + game);
         if (marker.exists()) return;
 
         File mods = new File(gameDir, "mods");
         if (!mods.exists() && !mods.mkdirs()) return;
         Logger.appendToLog("[Xion] Installing phone performance pack for " + game + " (" + loader + ")");
         int ok = 0;
+        java.util.Set<String> done = new java.util.HashSet<>();
         for (String slug : PACK) {
             try {
-                if (install(slug, loader, game, mods)) ok++;
+                if (install(slug, loader, game, mods, done)) ok++;
             } catch (Exception e) {
                 Logger.appendToLog("[Xion] Skipped " + slug + ": " + e.getMessage());
             }
@@ -63,7 +65,8 @@ public final class XionMods {
     }
 
     /** @return true when the mod is present after this call (already there or freshly downloaded). */
-    private static boolean install(String slug, String loader, String game, File mods) throws Exception {
+    private static boolean install(String slug, String loader, String game, File mods, java.util.Set<String> done) throws Exception {
+        if (!done.add(slug)) return true;
         String loaders = "quilt".equals(loader) ? "[\"quilt\",\"fabric\"]" : "[\"fabric\"]";
         String url = "https://api.modrinth.com/v2/project/" + slug + "/version"
                 + "?loaders=" + Uri.encode(loaders)
@@ -73,7 +76,20 @@ public final class XionMods {
             Logger.appendToLog("[Xion] " + slug + " has no build for " + game);
             return false;
         }
-        JSONArray files = versions.getJSONObject(0).getJSONArray("files");
+        JSONObject version = versions.getJSONObject(0);
+        // Pull in required libraries first (by Modrinth project id), so the game never starts with missing dependencies.
+        JSONArray deps = version.optJSONArray("dependencies");
+        if (deps != null) {
+            for (int i = 0; i < deps.length(); i++) {
+                JSONObject d = deps.getJSONObject(i);
+                String pid = d.optString("project_id", null);
+                if ("required".equals(d.optString("dependency_type")) && pid != null && !pid.equals("null")) {
+                    try { install(pid, loader, game, mods, done); }
+                    catch (Exception e) { Logger.appendToLog("[Xion] Could not add dependency " + pid + ": " + e.getMessage()); }
+                }
+            }
+        }
+        JSONArray files = version.getJSONArray("files");
         JSONObject file = files.getJSONObject(0);
         for (int i = 0; i < files.length(); i++) {
             if (files.getJSONObject(i).optBoolean("primary")) file = files.getJSONObject(i);
@@ -81,9 +97,6 @@ public final class XionMods {
         String name = file.getString("filename");
         File target = new File(mods, name);
         if (target.exists()) return true;
-        // Replace an older copy of the same mod instead of loading two versions.
-        File[] existing = mods.listFiles((dir, n) -> n.toLowerCase().startsWith(slug.split("-")[0]) && n.endsWith(".jar"));
-        if (existing != null && existing.length > 0) return true;
         DownloadUtils.downloadFile(file.getString("url"), target);
         Logger.appendToLog("[Xion] Installed " + name);
         return true;
