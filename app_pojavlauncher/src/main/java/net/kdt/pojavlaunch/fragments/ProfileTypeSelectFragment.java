@@ -27,6 +27,14 @@ public class ProfileTypeSelectFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        // Xion Mobile is Fabric only: hide vanilla, OptiFine and the other loaders.
+        int[] hidden = { R.id.title_textview, R.id.view, R.id.vanilla_profile, R.id.optifine_profile,
+                R.id.modded_profile_quilt, R.id.modded_profile_forge, R.id.modded_profile_neoforge,
+                R.id.modded_profile_modpack, R.id.modded_profile_lwjgl3ify, R.id.modded_profile_bta };
+        for (int id : hidden) {
+            View v = view.findViewById(id);
+            if (v != null) v.setVisibility(View.GONE);
+        }
         view.findViewById(R.id.vanilla_profile).setOnClickListener(v -> Tools.swapFragment(requireActivity(), ProfileEditorFragment.class,
                 ProfileEditorFragment.TAG, new Bundle(1)));
 

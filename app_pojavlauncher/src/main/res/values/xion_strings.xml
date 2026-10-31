@@ -19,13 +19,16 @@
     <string name="xion_offline_subtitle">3–16 letters, numbers or underscores. This is the name other players see.</string>
     <string name="xion_offline_hint">Steve</string>
     <string name="xion_offline_go">Start playing</string>
-    <string name="xion_url_home" translatable="false">https://anisbabu.github.io/xion-launcher/</string>
+    <string name="xion_url_home" translatable="false">https://xion-launcher.vercel.app/</string>
 
     <string name="xion_lite_title">Lite mode</string>
-    <string name="xion_lite_on">Lite mode is on. New and existing game folders get low-end video settings the next time you press Play: short render distance, fast graphics, no clouds, fewer particles and a 60 FPS cap.</string>
+    <string name="xion_lite_on">Lite mode is on, tuned for a %1$s phone. Each game folder gets phone video settings the next time you press Play: short render distance, fast graphics, no clouds or menu blur, fewer particles and up to 120 FPS. The render resolution is lowered for more FPS (Settings → Video to change it). Fabric profiles also get Xion’s phone pack: 16 performance mods plus AppleSkin, Xaero’s Minimap and Mod Menu.</string>
+    <string name="xion_tier_low">low-end</string>
+    <string name="xion_tier_mid">mid-range</string>
+    <string name="xion_tier_high">high-end</string>
     <string name="xion_lite_off">Lite mode is off. Your own video settings are left alone.</string>
     <string name="xion_lite_enable">Turn on</string>
     <string name="xion_lite_disable">Turn off</string>
     <string name="xion_lite_apply_now">Apply to this profile now</string>
-    <string name="xion_lite_applied">Low-end settings applied to this profile.</string>
+    <string name="xion_lite_applied">Phone settings applied to this profile.</string>
 </resources>

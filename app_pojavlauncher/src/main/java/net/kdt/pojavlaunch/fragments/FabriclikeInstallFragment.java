@@ -267,7 +267,8 @@ public abstract class FabriclikeInstallFragment extends Fragment implements Modl
         @Override
         public void run(Future<?> myFuture) {
             try {
-                mGameVersionArray = mFabriclikeUtils.downloadGameVersions();
+                // Xion Mobile: only the game versions it supports.
+                mGameVersionArray = net.xion.mobile.XionVersions.filter(mFabriclikeUtils.downloadGameVersions());
                 if(mGameVersionArray != null) onFinished(myFuture);
                 else onException(myFuture, null);
             }catch (IOException e) {

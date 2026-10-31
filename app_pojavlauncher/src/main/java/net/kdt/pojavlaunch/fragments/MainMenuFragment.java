@@ -108,7 +108,7 @@ public class MainMenuFragment extends Fragment {
         boolean on = net.xion.mobile.XionLite.isEnabled();
         AlertDialog.Builder b = new AlertDialog.Builder(requireContext())
                 .setTitle(R.string.xion_lite_title)
-                .setMessage(on ? R.string.xion_lite_on : R.string.xion_lite_off)
+                .setMessage(on ? getString(R.string.xion_lite_on, getString(tierName(net.xion.mobile.XionLite.tier(requireContext())))) : getString(R.string.xion_lite_off))
                 .setPositiveButton(on ? R.string.xion_lite_disable : R.string.xion_lite_enable,
                         (d, w) -> net.xion.mobile.XionLite.setEnabled(!on));
         if (on && hasOnlineProfile()) {
@@ -118,6 +118,14 @@ public class MainMenuFragment extends Fragment {
             });
         }
         b.show();
+    }
+
+    private static int tierName(net.xion.mobile.XionLite.Tier t) {
+        switch (t) {
+            case HIGH: return R.string.xion_tier_high;
+            case MID: return R.string.xion_tier_mid;
+            default: return R.string.xion_tier_low;
+        }
     }
 
     private File getCurrentProfileDirectory() {

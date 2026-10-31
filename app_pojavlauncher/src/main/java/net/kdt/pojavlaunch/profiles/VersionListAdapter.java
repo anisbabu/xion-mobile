@@ -31,7 +31,8 @@ public class VersionListAdapter extends BaseExpandableListAdapter implements Exp
         mHideCustomVersions = hideCustomVersions;
         mLayoutInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        List<JMinecraftVersionList.Version> releaseList = new FilteredSubList<>(versionList, item -> item.type.equals("release"));
+        // Xion Mobile: only supported releases (1.21.x and 26.1 to 26.3), no snapshots or old versions.
+        List<JMinecraftVersionList.Version> releaseList = new FilteredSubList<>(versionList, item -> item.type.equals("release") && net.xion.mobile.XionVersions.supported(item.id));
         List<JMinecraftVersionList.Version> snapshotList = new FilteredSubList<>(versionList, item -> item.type.equals("snapshot"));
         List<JMinecraftVersionList.Version> betaList = new FilteredSubList<>(versionList, item -> item.type.equals("old_beta"));
         List<JMinecraftVersionList.Version> alphaList = new FilteredSubList<>(versionList, item -> item.type.equals("old_alpha"));
@@ -42,24 +43,16 @@ public class VersionListAdapter extends BaseExpandableListAdapter implements Exp
             Arrays.sort(mInstalledVersions);
 
         if(!areInstalledVersionsAvailable()){
-            mGroups = new String[]{
-                    ctx.getString(R.string.mcl_setting_veroption_release),
-                    ctx.getString(R.string.mcl_setting_veroption_snapshot),
-                    ctx.getString(R.string.mcl_setting_veroption_oldbeta),
-                    ctx.getString(R.string.mcl_setting_veroption_oldalpha)
-            };
-            mData = new List[]{ releaseList, snapshotList, betaList, alphaList};
-            mSnapshotListPosition = 1;
+            mGroups = new String[]{ ctx.getString(R.string.mcl_setting_veroption_release) };
+            mData = new List[]{ releaseList };
+            mSnapshotListPosition = -1;
         }else{
             mGroups = new String[]{
                     ctx.getString(R.string.mcl_setting_veroption_installed),
-                    ctx.getString(R.string.mcl_setting_veroption_release),
-                    ctx.getString(R.string.mcl_setting_veroption_snapshot),
-                    ctx.getString(R.string.mcl_setting_veroption_oldbeta),
-                    ctx.getString(R.string.mcl_setting_veroption_oldalpha)
+                    ctx.getString(R.string.mcl_setting_veroption_release)
             };
-            mData = new List[]{Arrays.asList(mInstalledVersions), releaseList, snapshotList, betaList, alphaList};
-            mSnapshotListPosition = 2;
+            mData = new List[]{Arrays.asList(mInstalledVersions), releaseList};
+            mSnapshotListPosition = -1;
         }
     }
 
